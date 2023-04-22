@@ -111,7 +111,7 @@ impl<'a> Assembler<'a> {
                                     "{:016b}",
                                     self.symbol_table.get(&address_location).unwrap()
                                 ));
-                                //println!("{:016b}", self.symbol_table.get(&address_location).unwrap());
+                                // println!("{:016b}", self.symbol_table.get(&address_location).unwrap());
                             } else {
                                 // Otherwise, add a placeholder in the Vec for the file print, and add
                                 // to to_fill to be checked after the loop.

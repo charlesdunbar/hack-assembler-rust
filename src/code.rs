@@ -10,13 +10,13 @@ pub fn dest(input: Option<String>) -> String {
         Some("ADM") | Some("AMD") | Some("DMA") | Some("DAM") | Some("MDA") | Some("MAD") => {
             String::from("111")
         }
-        Some(_) => String::from("error"),
+        Some(_) => String::from("dest_error"),
     }
 }
 
 pub fn comp(input: Option<String>) -> String {
     match input.as_deref() {
-        None => String::from("error"),
+        None => String::from("comp_none_error"),
         Some("0")   => String::from("0101010"),
         Some("1")   => String::from("0111111"),
         Some("-1")  => String::from("0111010"),
@@ -45,7 +45,7 @@ pub fn comp(input: Option<String>) -> String {
         Some("D&M") => String::from("1000000"),
         Some("D|A") => String::from("0010101"),
         Some("D|M") => String::from("1010101"),
-        Some(_) => String::from("error"),
+        Some(_) => String::from("comp_error"),
     }
 }
 
@@ -59,6 +59,6 @@ pub fn jump(input: Option<String>) -> String {
         Some("JNE") => String::from("101"),
         Some("JLE") => String::from("110"),
         Some("JMP") => String::from("111"),
-        Some(_) => String::from("error"),
+        Some(_) => String::from("jump_error"),
     }
 }

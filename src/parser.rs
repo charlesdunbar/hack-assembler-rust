@@ -54,22 +54,24 @@ impl<'a> Parser<'a> {
                 self.current_instruction = None;
             }
             Some(line) => {
-                match line.chars().next() {
+                match line.trim().chars().next() {
                     None => {
                         // Skip blank lines
                         self.advance();
                     }
                     // Look at first character in the line
                     Some(c) => {
-                        //println!("at {}", c);
+                        // println!("at {}", c);
                         match c {
                             '/' => {
-                                if line.chars().next() == Some('/') {
+                                if line.trim().chars().next() == Some('/') {
                                     // Do nothing to skip over comments
+                                    // println!("Skipping comment");
                                     self.advance();
                                 }
                             }
                             _ => {
+                                // println!("{:?}", line);
                                 self.current_instruction =
                                     Some(line.split("//").next().unwrap().trim());
                                 // println!(
@@ -89,6 +91,7 @@ impl<'a> Parser<'a> {
     }
 
     pub fn instruction_type(&self) -> InstructionType {
+        // println!("{:?}", self.current_instruction);
         if let Some('@') = self.current_instruction.unwrap().chars().next() {
             return InstructionType::AINSTRUCTION;
         } else if let Some('(') = self.current_instruction.unwrap().chars().next() {
