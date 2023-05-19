@@ -79,7 +79,7 @@ impl<'a> Assembler<'a> {
 
     pub fn generate_binary(&mut self) -> Vec<String> {
         let mut generated_binary = Vec::new();
-        let mut current_ram:u16 = 16;
+        let mut current_ram: u16 = 16;
 
         while self.parser.has_more_lines() {
             self.parser.advance();
@@ -142,10 +142,8 @@ impl<'a> Assembler<'a> {
                     // );
                 }
                 InstructionType::LINSTRUCTION => {
-                    self.symbol_table.insert(
-                        self.parser.symbol().unwrap(),
-                        self.parser.current_line,
-                    );
+                    self.symbol_table
+                        .insert(self.parser.symbol().unwrap(), self.parser.current_line);
                     // println!(
                     //     "{:016b}",
                     //     self.symbol_table
@@ -168,8 +166,7 @@ impl<'a> Assembler<'a> {
             // If not in symbol table at the end, dealing with a variable. Put them in ram and update generated_binary.
             // Also remove the u16 elements from the vec so the next iteration doesn't do anything with them.
             if !self.symbol_table.contains_key(instruction.0) {
-                self.symbol_table
-                    .insert(instruction.0.clone(), current_ram);
+                self.symbol_table.insert(instruction.0.clone(), current_ram);
                 instruction.1.retain(|line| {
                     // println!(
                     //     "Trying to set variable generated_binary[{}] to {}",
@@ -190,7 +187,8 @@ impl<'a> Assembler<'a> {
                 //     (*line as usize) - 1,
                 //     format!("{:016b}", self.symbol_table.get(instruction.0).unwrap())
                 // );
-                generated_binary[(*line as usize) - 1] = format!("{:016b}", self.symbol_table.get(instruction.0).unwrap());
+                generated_binary[(*line as usize) - 1] =
+                    format!("{:016b}", self.symbol_table.get(instruction.0).unwrap());
             }
         }
         // println!("At the end, to_fill contains {:?}", self.to_fill);
