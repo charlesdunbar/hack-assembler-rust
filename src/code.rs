@@ -35,8 +35,8 @@ pub fn comp(input: Option<String>) -> String {
         Some("D-1") => String::from("0001110"),
         Some("A-1") => String::from("0110010"),
         Some("M-1") => String::from("1110010"),
-        Some("D+A") => String::from("0000010"),
-        Some("D+M") => String::from("1000010"),
+        Some("D+A") | Some("A+D") => String::from("0000010"),
+        Some("D+M") | Some("M+D") => String::from("1000010"),
         Some("D-A") => String::from("0010011"),
         Some("D-M") => String::from("1010011"),
         Some("A-D") => String::from("0000111"),
@@ -45,7 +45,10 @@ pub fn comp(input: Option<String>) -> String {
         Some("D&M") => String::from("1000000"),
         Some("D|A") => String::from("0010101"),
         Some("D|M") => String::from("1010101"),
-        Some(_) => String::from("comp_error"),
+        Some(_) => {
+            println!("Failed to parse {:?}", input);
+            String::from("comp_error")
+        }
     }
 }
 
